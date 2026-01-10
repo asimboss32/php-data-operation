@@ -1,6 +1,32 @@
 <?php
 include 'config.php';
 ?>
+ <?php
+
+        if (isset($_POST['submit'])) {
+            $name = $_POST['name'];
+            $class = $_POST['class'];
+            $roll = $_POST['roll'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+
+            $insert_query = "INSERT INTO students(name, class, roll, phone, email, address) VALUES ('$name', '$class', '$roll', '$phone', '$email', '$address')";
+
+            $insert_result = mysqli_query($connect, $insert_query);
+
+            if ($insert_result) {
+               header('location:index.php');
+            } else {
+                echo "<div class='alert alert-danger mt-3' role='alert'>
+                Data insertion failed!
+              </div>";
+            }
+        }
+
+        ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +59,7 @@ include 'config.php';
         </nav>
     </div>
     <div class="container">
-        <form>
+        <form action="" method="POST">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name*</label>
                 <input type="text" class="form-control" placeholder="Enter your Name" name="name" id="" value="" required>
@@ -58,9 +84,8 @@ include 'config.php';
                 <label for="" class="form-label">Address*</label>
                 <textarea name="address" id="" class="form-control"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
-
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
